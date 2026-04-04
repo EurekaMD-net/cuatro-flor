@@ -1,203 +1,336 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Armonicos Planetarios - Cuatro Flor</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #fff; min-height: 100vh; padding: 20px;
-        }
-        .container { max-width: 1400px; margin: 0 auto; }
-        h1 { text-align: center; margin-bottom: 10px; color: #F1C40F; }
-        .subtitle { text-align: center; color: #aaa; margin-bottom: 20px; font-size: 14px; }
-        .main-content { display: grid; grid-template-columns: 1fr 400px; gap: 20px; }
-        .canvas-container { 
-            background: rgba(0,0,0,0.3); border-radius: 15px; padding: 20px;
-            display: flex; justify-content: center; align-items: center;
-        }
-        canvas { border-radius: 10px; background: radial-gradient(circle, #1a1a2e 0%, #0d0d1a 100%); }
-        .info-panel { background: rgba(0,0,0,0.3); border-radius: 15px; padding: 20px; }
-        .planet-card {
-            background: rgba(255,255,255,0.05); border-radius: 10px; padding: 15px;
-            margin-bottom: 10px; border-left: 4px solid;
-        }
-        .planet-name { font-size: 18px; font-weight: bold; margin-bottom: 8px; }
-        .planet-data { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px; }
-        .data-label { color: #888; }
-        .data-value { color: #fff; font-weight: 500; }
-        .controls { 
-            grid-column: 1 / -1; background: rgba(0,0,0,0.3); 
-            border-radius: 15px; padding: 20px; display: flex; gap: 15px; flex-wrap: wrap; align-items: center;
-        }
-        button {
-            background: #3498DB; color: white; border: none; padding: 10px 20px;
-            border-radius: 8px; cursor: pointer; font-size: 14px; transition: all 0.3s;
-        }
-        button:hover { background: #2980B9; transform: translateY(-2px); }
-        button.active { background: #27AE60; }
-        input[type="range"] { width: 200px; }
-        .time-display { color: #F1C40F; font-size: 16px; font-weight: bold; }
-        @media (max-width: 900px) { .main-content { grid-template-columns: 1fr; } }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Armonías Planetarias - Cuatro Flor</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 10px;
+      font-size: 2em;
+      text-align: center;
+      background: linear-gradient(90deg, #f39c12, #e74c3c, #3498db, #9b59b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .subtitle {
+      color: #aaa;
+      margin-bottom: 20px;
+      font-size: 0.9em;
+    }
+    .container {
+      display: flex;
+      gap: 30px;
+      max-width: 1400px;
+      width: 100%;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .canvas-container {
+      background: rgba(255,255,255,0.05);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    canvas {
+      border-radius: 10px;
+      background: radial-gradient(circle, #1e3a5f 0%, #0f1c2e 100%);
+    }
+    .data-panel {
+      background: rgba(255,255,255,0.05);
+      border-radius: 15px;
+      padding: 20px;
+      min-width: 350px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    .planet-card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-left: 4px solid;
+      transition: transform 0.2s;
+    }
+    .planet-card:hover {
+      transform: translateX(5px);
+      background: rgba(255,255,255,0.12);
+    }
+    .planet-name {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .planet-data {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+      font-size: 0.85em;
+      color: #ccc;
+    }
+    .data-label {
+      color: #888;
+    }
+    .data-value {
+      text-align: right;
+      font-family: 'Courier New', monospace;
+      color: #fff;
+    }
+    .loading {
+      text-align: center;
+      padding: 40px;
+      font-size: 1.2em;
+      color: #f39c12;
+    }
+    .error {
+      text-align: center;
+      padding: 40px;
+      font-size: 1.2em;
+      color: #e74c3c;
+      background: rgba(231,76,60,0.1);
+      border-radius: 10px;
+    }
+    .timestamp {
+      margin-top: 20px;
+      font-size: 0.8em;
+      color: #666;
+      text-align: center;
+    }
+    button {
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1em;
+      margin-top: 10px;
+      transition: transform 0.2s;
+    }
+    button:hover {
+      transform: scale(1.05);
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🌌 Armónicos Planetarios</h1>
-        <p class="subtitle">Datos en vivo desde Google Sheets - Cuatro Flor Project</p>
+  <h1>🌌 Armonías Planetarias</h1>
+  <p class="subtitle">Datos en tiempo real desde Google Sheets - Cuatro Flor</p>
+  
+  <div id="content">
+    <div class="loading">Cargando datos de la hoja...</div>
+  </div>
+
+  <div class="timestamp" id="timestamp"></div>
+  <button onclick="loadData()">🔄 Recargar Datos</button>
+
+  <script>
+    // URL del CSV exportado desde la Google Sheet
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/11ZKjulKOPaw3xzpLof_6g5PCtxZztMslsPQlzIdJy0k/export?format=csv';
+    
+    let planets = [];
+    let animationId = null;
+    let startTime = Date.now();
+
+    async function loadData() {
+      const contentDiv = document.getElementById('content');
+      contentDiv.innerHTML = '<div class="loading">Cargando datos de la hoja...</div>';
+      
+      try {
+        const response = await fetch(CSV_URL);
+        if (!response.ok) throw new Error('Error al cargar el CSV');
+        const csvText = await response.text();
         
-        <div class="controls">
-            <button id="playPauseBtn" onclick="toggleAnimation()">⏸ Pausar</button>
-            <button onclick="resetView()">🔄 Resetear Vista</button>
-            <label style="color: #aaa;">Velocidad:</label>
-            <input type="range" id="speedSlider" min="0.1" max="5" step="0.1" value="1" onchange="updateSpeed(this.value)">
-            <span class="time-display" id="timeDisplay">Día 0 | 00:00:00</span>
+        planets = parseCSV(csvText);
+        
+        if (planets.length === 0) {
+          throw new Error('No hay datos de planetas en la hoja');
+        }
+        
+        renderVisualization();
+        updateTimestamp();
+      } catch (error) {
+        contentDiv.innerHTML = `
+          <div class="error">
+            ❌ Error: ${error.message}<br><br>
+            Asegúrate de que la Google Sheet esté pública o tenga el CSV exportado.
+          </div>
+        `;
+      }
+    }
+
+    function parseCSV(text) {
+      const lines = text.trim().split('\n');
+      if (lines.length < 2) return [];
+      
+      const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
+      const data = [];
+      
+      for (let i = 1; i < lines.length; i++) {
+        const values = lines[i].split(',');
+        if (values.length < 2 || !values[0].trim()) continue;
+        
+        const row = {};
+        headers.forEach((header, idx) => {
+          row[header] = values[idx] ? values[idx].trim() : '';
+        });
+        
+        // Solo incluir si tiene nombre y período válido
+        if (row.planeta && row.periodo_dias && !isNaN(parseFloat(row.periodo_dias))) {
+          data.push({
+            name: row.planeta,
+            period: parseFloat(row.periodo_dias),
+            harmonic: parseFloat(row.harmonico) || 1,
+            frequency: parseFloat(row.frecuencia_hz) || 0,
+            resonance: parseFloat(row.resonancia) || 0,
+            cycles: parseFloat(row.ciclos_completados) || 0,
+            color: generateColor(row.planeta)
+          });
+        }
+      }
+      
+      return data;
+    }
+
+    function generateColor(name) {
+      // Genera un color consistente basado en el nombre
+      const colors = {
+        'mercurio': '#A0A0A0',
+        'venus': '#E67E22',
+        'tierra': '#3498DB',
+        'marte': '#E74C3C',
+        'jupiter': '#8B4513',
+        'saturno': '#F1C40F',
+        'urano': '#00CED1',
+        'neptuno': '#4169E1'
+      };
+      return colors[name.toLowerCase()] || 
+             '#' + Math.floor(Math.abs(Math.sin(name.length * 1000)) * 16777215).toString(16).padStart(6, '0');
+    }
+
+    function renderVisualization() {
+      const contentDiv = document.getElementById('content');
+      contentDiv.innerHTML = `
+        <div class="container">
+          <div class="canvas-container">
+            <canvas id="orbitCanvas" width="600" height="600"></canvas>
+          </div>
+          <div class="data-panel" id="dataPanel"></div>
         </div>
+      `;
+      
+      renderPlanetCards();
+      startAnimation();
+    }
 
-        <div class="main-content">
-            <div class="canvas-container">
-                <canvas id="orbitCanvas" width="700" height="700"></canvas>
-            </div>
-            <div class="info-panel" id="infoPanel"></div>
-        </div>
-    </div>
+    function renderPlanetCards() {
+      const panel = document.getElementById('dataPanel');
+      panel.innerHTML = '<h2 style="margin-bottom:15px;">📊 Datos Planetarios</h2>';
+      
+      planets.forEach(planet => {
+        const card = document.createElement('div');
+        card.className = 'planet-card';
+        card.style.borderColor = planet.color;
+        card.innerHTML = `
+          <div class="planet-name" style="color:${planet.color}">${planet.name}</div>
+          <div class="planet-data">
+            <span class="data-label">Período:</span>
+            <span class="data-value">${planet.period.toFixed(2)} días</span>
+            <span class="data-label">Armónico:</span>
+            <span class="data-value">${planet.harmonic}</span>
+            <span class="data-label">Frecuencia:</span>
+            <span class="data-value">${planet.frequency.toExponential(2)} Hz</span>
+            <span class="data-label">Resonancia:</span>
+            <span class="data-value">${planet.resonance.toExponential(2)} Hz</span>
+            <span class="data-label">Ciclos/año:</span>
+            <span class="data-value">${planet.cycles.toFixed(2)}</span>
+          </div>
+        `;
+        panel.appendChild(card);
+      });
+    }
 
-    <script>
-        // DATOS CARGADOS DESDE GOOGLE SHEETS - CUATRO FLOR
-        const PLANETS_DATA = [
-            {"name": "Mercurio", "period": 87.97, "harmonic": 13, "color": "#A0A0A0"},
-            {"name": "Venus", "period": 224.70, "harmonic": 9, "color": "#E67E22"},
-            {"name": "Tierra", "period": 365.25, "harmonic": 1, "color": "#3498DB"},
-            {"name": "Marte", "period": 686.98, "harmonic": 7, "color": "#E74C3C"},
-            {"name": "Júpiter", "period": 4332.59, "harmonic": 5, "color": "#8B4513"},
-            {"name": "Saturno", "period": 10759.22, "harmonic": 3, "color": "#F1C40F"}
-        ];
+    function startAnimation() {
+      const canvas = document.getElementById('orbitCanvas');
+      const ctx = canvas.getContext('2d');
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      const maxRadius = Math.min(centerX, centerY) - 40;
+      
+      // Escalar períodos para animación visible
+      const minPeriod = Math.min(...planets.map(p => p.period));
+      const timeScale = minPeriod / 1000; // 1 segundo real = período más rápido
+      
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        const elapsed = (Date.now() - startTime) / 1000;
+        
+        // Dibujar órbitas
+        planets.forEach((planet, index) => {
+          const radius = 40 + (index / planets.length) * (maxRadius - 40);
+          
+          // Dibujar línea de órbita
+          ctx.beginPath();
+          ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+          ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          
+          // Calcular posición del planeta
+          const angularSpeed = (2 * Math.PI) / (planet.period * timeScale);
+          const angle = (elapsed * angularSpeed) % (2 * Math.PI);
+          const x = centerX + radius * Math.cos(angle);
+          const y = centerY + radius * Math.sin(angle);
+          
+          // Dibujar planeta
+          ctx.beginPath();
+          ctx.arc(x, y, 8 + index * 2, 0, Math.PI * 2);
+          ctx.fillStyle = planet.color;
+          ctx.fill();
+          
+          // Brillo
+          ctx.beginPath();
+          ctx.arc(x, y, 12 + index * 2, 0, Math.PI * 2);
+          ctx.fillStyle = planet.color + '40';
+          ctx.fill();
+        });
+        
+        // Sol en el centro
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, 20, 0, Math.PI * 2);
+        ctx.fillStyle = '#FDB813';
+        ctx.fill();
+        ctx.shadowBlur = 30;
+        ctx.shadowColor = '#FDB813';
+        
+        animationId = requestAnimationFrame(animate);
+      }
+      
+      animate();
+    }
 
-        let planets = [];
-        let isPlaying = true;
-        let speedMultiplier = 1;
-        let elapsedDays = 0;
-        let animationId;
-        const centerX = 350, centerY = 350;
+    function updateTimestamp() {
+      const now = new Date();
+      document.getElementById('timestamp').textContent = 
+        `Última actualización: ${now.toLocaleString('es-MX', { 
+          year: 'numeric', month: 'long', day: 'numeric',
+          hour: '2-digit', minute: '2-digit', second: '2-digit'
+        })} CDMX`;
+    }
 
-        function init() {
-            planets = PLANETS_DATA.map((p, i) => ({
-                ...p,
-                orbitRadius: 60 + (i * 55),
-                angle: Math.random() * Math.PI * 2,
-                frequency: 1 / p.period,
-                resonantFreq: (1 / p.period) * p.harmonic,
-                cyclesPerYear: 365.25 / p.period
-            }));
-            renderInfoPanel();
-            animate();
-        }
-
-        function renderInfoPanel() {
-            const panel = document.getElementById('infoPanel');
-            panel.innerHTML = planets.map(p => `
-                <div class="planet-card" style="border-color: ${p.color}">
-                    <div class="planet-name" style="color: ${p.color}">${p.name}</div>
-                    <div class="planet-data">
-                        <span class="data-label">Período:</span>
-                        <span class="data-value">${p.period.toFixed(2)} días</span>
-                        <span class="data-label">Armónico:</span>
-                        <span class="data-value">${p.harmonic}</span>
-                        <span class="data-label">Frecuencia:</span>
-                        <span class="data-value">${p.frequency.toExponential(2)} Hz</span>
-                        <span class="data-label">Resonancia:</span>
-                        <span class="data-value">${p.resonantFreq.toExponential(2)} Hz</span>
-                        <span class="data-label">Ciclos/año:</span>
-                        <span class="data-value">${p.cyclesPerYear.toFixed(2)}</span>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function drawOrbit(ctx, radius, color) {
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
-            ctx.strokeStyle = color + '30';
-            ctx.lineWidth = 1;
-            ctx.stroke();
-        }
-
-        function drawPlanet(ctx, planet) {
-            const x = centerX + Math.cos(planet.angle) * planet.orbitRadius;
-            const y = centerY + Math.sin(planet.angle) * planet.orbitRadius;
-            
-            ctx.beginPath();
-            ctx.arc(x, y, 8, 0, Math.PI * 2);
-            ctx.fillStyle = planet.color;
-            ctx.fill();
-            ctx.shadowColor = planet.color;
-            ctx.shadowBlur = 15;
-            ctx.fill();
-            ctx.shadowBlur = 0;
-
-            ctx.fillStyle = '#fff';
-            ctx.font = '11px Arial';
-            ctx.fillText(planet.name, x + 12, y + 4);
-        }
-
-        function update() {
-            if (isPlaying) {
-                elapsedDays += 0.1 * speedMultiplier;
-                planets.forEach(p => {
-                    p.angle += (2 * Math.PI / p.period) * 0.1 * speedMultiplier;
-                });
-                const days = Math.floor(elapsedDays);
-                const hours = Math.floor((elapsedDays % 1) * 24);
-                const mins = Math.floor(((elapsedDays % 1) * 24 % 1) * 60);
-                const secs = Math.floor((((elapsedDays % 1) * 24 % 1) * 60 % 1) * 60);
-                document.getElementById('timeDisplay').textContent = 
-                    `Día ${days} | ${hours.toString().padStart(2,'0')}:${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
-            }
-        }
-
-        function draw() {
-            const canvas = document.getElementById('orbitCanvas');
-            const ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            planets.forEach(p => drawOrbit(ctx, p.orbitRadius, p.color));
-            
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, 20, 0, Math.PI * 2);
-            ctx.fillStyle = '#F1C40F';
-            ctx.fill();
-            ctx.shadowColor = '#F1C40F';
-            ctx.shadowBlur = 30;
-            ctx.fill();
-            ctx.shadowBlur = 0;
-
-            planets.forEach(p => drawPlanet(ctx, p));
-        }
-
-        function animate() {
-            update();
-            draw();
-            animationId = requestAnimationFrame(animate);
-        }
-
-        function toggleAnimation() {
-            isPlaying = !isPlaying;
-            document.getElementById('playPauseBtn').textContent = isPlaying ? '⏸ Pausar' : '▶ Reproducir';
-        }
-
-        function resetView() {
-            elapsedDays = 0;
-            planets.forEach((p, i) => p.angle = Math.random() * Math.PI * 2);
-        }
-
-        function updateSpeed(val) {
-            speedMultiplier = parseFloat(val);
-        }
-
-        init();
-    </script>
+    // Cargar datos al iniciar
+    loadData();
+  </script>
 </body>
 </html>
