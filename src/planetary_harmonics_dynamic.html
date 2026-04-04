@@ -171,33 +171,67 @@
 
     function parseCSV(text) {
       const lines = text.trim().split('\n');
-      if (lines.length < 2) return [];
+      if (lines.length < 3) return [];
       
-      const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
+      // La sheet tiene datos en Hoja1 con estructura especial:
+      // Row 1: valores numéricos ( Rotación sinódica aparente, 29.25, 117, 585, etc.)
+      // Row 2: headers (Ciclos, Días Terrestres, Luna, Mercurio, Venus, Marte, Jupiter, Saturno, Tzolkin, etc.)
+      // Rows 3+: datos numéricos
+      
+      const headerRow = lines[1].split(',').map(h => h.trim());
       const data = [];
       
-      for (let i = 1; i < lines.length; i++) {
-        const values = lines[i].split(',');
-        if (values.length < 2 || !values[0].trim()) continue;
-        
-        const row = {};
-        headers.forEach((header, idx) => {
-          row[header] = values[idx] ? values[idx].trim() : '';
-        });
-        
-        // Solo incluir si tiene nombre y período válido
-        if (row.planeta && row.periodo_dias && !isNaN(parseFloat(row.periodo_dias))) {
-          data.push({
-            name: row.planeta,
-            period: parseFloat(row.periodo_dias),
-            harmonic: parseFloat(row.harmonico) || 1,
-            frequency: parseFloat(row.frecuencia_hz) || 0,
-            resonance: parseFloat(row.resonancia) || 0,
-            cycles: parseFloat(row.ciclos_completados) || 0,
-            color: generateColor(row.planeta)
-          });
+      // Mapeo de columnas de planetas según la sheet
+      // Columnas: 0=Ciclos, 1=Días Terrestres, 2=empty, 3=Luna, 4=Mercurio, 5=Venus, 6=Marte, 7=empty, 8=Jupiter, 9=Saturno
+      const planetColumns = {
+        'Luna': 3,
+        'Mercurio': 4,
+        'Venus': 5,
+        'Marte': 6,
+        'Jupiter': 8,
+        'Saturno': 9
+      };
+      
+      // Extraer el período base de la fila 1 para cada planeta
+      const basePeriods = lines[0].split(',').map(v => v.trim());
+      
+      Object.entries(planetColumns).forEach(([planetName, colIdx]) => {
+        if (colIdx < basePeriods.length && basePeriods[colIdx]) {
+          const periodStr = basePeriods[colIdx].replace(/,/g, '');
+          const period = parseFloat(periodStr);
+          
+          if (!isNaN(period) && period > 0) {
+            // Calcular frecuencia: 1 / (período en segundos)
+            const periodSeconds = period * 24 * 60 * 60;
+            const frequency = 1 / periodSeconds;
+            
+            // Armónico basado en la posición del planeta (valores típicos del sistema)
+            const harmonicMap = {
+              'Luna': 13,
+              'Mercurio': 13,
+              'Venus': 9,
+              'Marte': 7,
+              'Jupiter': 5,
+              'Saturno': 3
+            };
+            const harmonic = harmonicMap[planetName] || 1;
+            const resonance = frequency * harmonic;
+            
+            // Ciclos por año terrestre (365.25 días)
+            const cyclesPerYear = 365.25 / period;
+            
+            data.push({
+              name: planetName,
+              period: period,
+              harmonic: harmonic,
+              frequency: frequency,
+              resonance: resonance,
+              cycles: cyclesPerYear,
+              color: generateColor(planetName)
+            });
+          }
         }
-      }
+      });
       
       return data;
     }
