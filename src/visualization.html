@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualización de Armonía Planetaria - Cuatro Flor</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #ffffff;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #bbbbbb;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        .info-panel {
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4CAF50;
+        }
+        .info-panel h2 {
+            margin-top: 0;
+            color: #4CAF50;
+        }
+        .planet-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .planet-card {
+            background: #1e1e1e;
+            border-radius: 10px;
+            padding: 20px;
+            width: 280px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+        .planet-card:hover {
+            transform: translateY(-5px);
+            background: #252525;
+        }
+        .planet-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .planet-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .planet-name {
+            font-size: 1.4em;
+            font-weight: bold;
+        }
+        .planet-data {
+            margin: 10px 0;
+        }
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #333;
+        }
+        .data-label {
+            color: #aaa;
+        }
+        .data-value {
+            font-weight: bold;
+            color: #fff;
+        }
+        .wave-container {
+            margin-top: 20px;
+            height: 100px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 5px;
+            background: #111;
+        }
+        .wave {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: transparent;
+            transform: translateY(-50%);
+        }
+        .cycle-info {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #bbb;
+        }
+        .timestamp {
+            text-align: center;
+            color: #777;
+            font-size: 0.9em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Visualización de Armonía Planetaria</h1>
+        <div class="subtitle">Basado en los datos de la Hoja de Cálculo de Cuatro Flor</div>
+        
+        <div class="info-panel">
+            <h2>Información de la Fuente de Datos</h2>
+            <p><strong>Última actualización:</strong> <span id="lastUpdated"></span></p>
+            <p>Esta visualización se basa exclusivamente en los datos de la hoja de cálculo de Cuatro Flor. Cada valor mostrado proviene directamente de la hoja, sin supuestos astronómicos.</p>
+        </div>
+        
+        <div class="planet-container" id="planetContainer">
+            <!-- Planet cards will be generated here -->
+        </div>
+        
+        <div class="timestamp">
+            Generado dinámicamente desde los datos de la hoja de cálculo
+        </div>
+    </div>
+
+    <script>
+        // Datos embebidos generados desde la hoja de cálculo
+        const planetData = [{"name": "Mercurio", "period_days": 87.97, "harmonic": 13, "frequency_hz": 1.315684218946695e-07, "resonance": 1.7103894846307034e-06, "cycles_completed": 4.151983630783222, "color": "#FF6B6B"}, {"name": "Venus", "period_days": 224.7, "harmonic": 9, "frequency_hz": 5.150900789530074e-08, "resonance": 4.635810710577067e-07, "cycles_completed": 1.6255006675567425, "color": "#4ECDC4"}, {"name": "Tierra", "period_days": 365.25, "harmonic": 1, "frequency_hz": 3.168808781402895e-08, "resonance": 3.168808781402895e-08, "cycles_completed": 1.0, "color": "#45B7D1"}, {"name": "Marte", "period_days": 686.98, "harmonic": 7, "frequency_hz": 1.684775986793513e-08, "resonance": 1.179343190755459e-07, "cycles_completed": 0.5316748668083495, "color": "#96CEB4"}, {"name": "Jupiter", "period_days": 4332.59, "harmonic": 5, "frequency_hz": 2.6713984185150393e-09, "resonance": 1.3356992092575196e-08, "cycles_completed": 0.0843029227321302, "color": "#FFEAA7"}, {"name": "Saturno", "period_days": 10759.22, "harmonic": 3, "frequency_hz": 1.0757354226490467e-09, "resonance": 3.22720626794714e-09, "cycles_completed": 0.03394762817378955, "color": "#DDA0DD"}];
+
+        function generatePlanetCard(planet) {
+            return `
+                <div class="planet-card">
+                    <div class="planet-header">
+                        <div class="planet-color" style="background-color: ${planet.color};"></div>
+                        <div class="planet-name">${planet.name}</div>
+                    </div>
+                    <div class="planet-data">
+                        <div class="data-row">
+                            <span class="data-label">Período (días):</span>
+                            <span class="data-value">${planet.period_days.toFixed(2)}</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">Armónico:</span>
+                            <span class="data-value">${planet.harmonic}</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">Frecuencia (Hz):</span>
+                            <span class="data-value">${planet.frequency_hz.toExponential(3)}</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">Resonancia:</span>
+                            <span class="data-value">${planet.resonance.toExponential(3)}</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">Ciclos/año:</span>
+                            <span class="data-value">${planet.cycles_completed.toFixed(3)}</span>
+                        </div>
+                    </div>
+                    <div class="wave-container">
+                        <div class="wave" style="background: linear-gradient(90deg, transparent, ${planet.color}, transparent);"></div>
+                    </div>
+                    <div class="cycle-info">
+                        ${planet.cycles_completed.toFixed(3)} ciclos completados en 365.25 días
+                    </div>
+                </div>
+            `;
+        }
+
+        function initializeVisualization() {
+            const container = document.getElementById('planetContainer');
+            const now = new Date();
+            
+            // Generate and insert planet cards
+            planetData.forEach(planet => {
+                container.innerHTML += generatePlanetCard(planet);
+            });
+            
+            // Update timestamp
+            document.getElementById('lastUpdated').textContent = now.toLocaleString('es-MX');
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initializeVisualization);
+    </script>
+</body>
+</html>
