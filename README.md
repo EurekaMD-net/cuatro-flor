@@ -11,19 +11,9 @@ Propósito fundamental en el tiempo en la Tierra. Investigación sobre calendari
 ## Fecha de inicio
 2026-04-03
 
-## 📦 REPOSITORIO OFICIAL
-
-**GitHub:** https://github.com/EurekaMD-net/cuatro-flor
-
-**SOP de Sincronización:**
-1. Jarvis KB (`projects/cuatro-flor/`) es la **fuente única de verdad**
-2. El repo GitHub debe reflejar **exactamente** la estructura del KB
-3. Cualquier cambio en el KB debe ser commiteado y pusheado al repo
-4. Estructura del repo:
-   - `/` — README.md y documentos raíz
-   - `/research/calendarios-mesoamericanos/` — Investigación principal
-   - `/research/calendarios-mesoamericanos/02-literatura-existente/` — Papers académicos
-   - `/research/calendarios-mesoamericanos/04-autores-clave/` — Perfiles de autores
+## Enlaces relevantes
+- **Repo oficial:** https://github.com/EurekaMD-net/cuatro-flor
+- Dashboard: TBD
 
 ## Documentación
 - `research/calendarios-mesoamericanos/` — Investigación principal sobre ciclos planetarios en calendarios mayas y aztecas
@@ -31,6 +21,12 @@ Propósito fundamental en el tiempo en la Tierra. Investigación sobre calendari
 ---
 
 ## 📝 Bitácora de Cambios Recientes
+
+### 2026-04-05 - Sincronización Completa Jarvis KB → GitHub
+- **Acción:** Sincronización de toda la estructura del KB al repo oficial
+- **Archivos afectados:** Todos los archivos del proyecto
+- **Estado resultante:** Repo GitHub refleja exactamente Jarvis KB
+- **Eliminado:** Carpeta `docs/` del repo local (no estaba en KB)
 
 ### 2026-04-05 22:48 - Integración Completa de Evidencia en Tesis
 - **Acción:** Actualización masiva del borrador de tesis con toda la evidencia académica disponible
@@ -48,4 +44,18 @@ Propósito fundamental en el tiempo en la Tierra. Investigación sobre calendari
 
 ---
 
-*Sincronizado desde Jarvis KB: 2026-04-05*
+## 📦 REPOSITORIO OFICIAL
+
+**GitHub:** https://github.com/EurekaMD-net/cuatro-flor
+
+**SOP de Sincronización:**
+1. Jarvis KB (`projects/cuatro-flor/`) es la **fuente única de verdad**
+2. El repo GitHub debe reflejar **exactamente** la estructura del KB
+3. Cualquier cambio en el KB debe ser commiteado y pusheado al repo
+4. Estructura del repo:
+   - `/` — README.md y documentos raíz
+   - `/research/calendarios-mesoamericanos/` — Investigación principal
+   - `/research/calendarios-mesoamericanos/02-literatura-existente/` — Papers académicos
+   - `/research/calendarios-mesoamericanos/04-autores-clave/` — Perfiles de autores
+
+**Última sincronización:** 2026-04-05
