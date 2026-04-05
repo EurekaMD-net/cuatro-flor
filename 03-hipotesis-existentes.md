@@ -271,7 +271,7 @@
 
 **Fuentes primarias pendientes:**
 - Códice Dresden completo (tablas de Mercurio, si existen)
-- Códice Madrid (almanaques de planetas internos)
+- Códice Madrid (almanaques rituales)
 - Estelas de Izapa (iconografía solar/planetaria)
 - Inscripciones de Palenque (Templo de las Inscripciones)
 - Artefactos Olmecas (posibles representaciones planetarias)

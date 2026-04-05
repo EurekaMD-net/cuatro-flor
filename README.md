@@ -11,16 +11,6 @@ Propósito fundamental en el tiempo en la Tierra. Investigación sobre calendari
 ## Fecha de inicio
 2026-04-03
 
-## Enlaces relevantes
-- **Repo Oficial:** https://github.com/EurekaMD-net/cuatro-flor
-- Dashboard: TBD
-- Spreadsheet: [Planet Harmonics](https://docs.google.com/spreadsheets/d/11ZKjulKOPaw3xzpLof_6g5PCtxZztMslsPQlzIdJy0k/edit)
-
-## Documentación
-- `research/calendarios-mesoamericanos/` — Investigación principal sobre ciclos planetarios en calendarios mayas y aztecas
-
----
-
 ## 📦 REPOSITORIO OFICIAL
 
 **GitHub:** https://github.com/EurekaMD-net/cuatro-flor
@@ -30,43 +20,32 @@ Propósito fundamental en el tiempo en la Tierra. Investigación sobre calendari
 2. El repo GitHub debe reflejar **exactamente** la estructura del KB
 3. Cualquier cambio en el KB debe ser commiteado y pusheado al repo
 4. Estructura del repo:
-   - `/` — README.md y documentos raíz (00-plan-investigacion.md, 01-introduccion-tesis.md, etc.)
+   - `/` — README.md y documentos raíz
    - `/research/calendarios-mesoamericanos/` — Investigación principal
    - `/research/calendarios-mesoamericanos/02-literatura-existente/` — Papers académicos
    - `/research/calendarios-mesoamericanos/04-autores-clave/` — Perfiles de autores
 
-**Última sincronización:** 2026-04-05
+## Documentación
+- `research/calendarios-mesoamericanos/` — Investigación principal sobre ciclos planetarios en calendarios mayas y aztecas
 
 ---
 
 ## 📝 Bitácora de Cambios Recientes
 
-### 2026-04-05 - Sincronización Completa con Jarvis KB
-- **Acción:** Sincronización total del repo local con Jarvis Knowledge Base
-- **Archivos afectados:** 
-  - Eliminados: `docs/`, `src/`, `Proyecto.md` (estructura antigua)
-  - Copiados: 21 archivos desde `projects/cuatro-flor/` (Jarvis KB)
-  - Actualizado: `README.md` con URL oficial y SOP de sincronización
-- **Estado resultante:** Repo local idéntico a Jarvis KB (fuente de verdad)
-- **SOP aplicado:** "Jarvis KB es la última verdad"
-
-### 2026-04-05 - Integración de Evidencia en Tesis
-- **Acción:** Actualización del borrador de tesis con evidencia astronómica completa
-- **Archivos afectados:** 
-  - Modificado: `research/calendarios-mesoamericanos/07-borrador-tesis-preliminar.md` (+5.7 KB)
-- **Estado resultante:** Tesis ahora incluye Apéndice A con matriz 117, Códice Dresde, Linden & Bricker (2023)
-- **SOP aplicado:** Documentación de cambios en README
+### 2026-04-05 22:48 - Integración Completa de Evidencia en Tesis
+- **Acción:** Actualización masiva del borrador de tesis con toda la evidencia académica disponible
+- **Archivos afectados:**
+  - Modificado: `research/calendarios-mesoamericanos/07-borrador-tesis-preliminar.md` (+12 KB)
+- **Cambios principales:**
+  - Apéndice A completo con 9 secciones de hallazgos integrados
+  - Matriz 117 completa documentada
+  - Validación cruzada con Linden & Bricker (2023), Aveni (2011), Hobel (2024)
+  - Comparativa 45 años vs. 52 años detallada
+  - Interpretación vibracional extendida
+  - Bibliografía actualizada
+- **Estado resultante:** Tesis lista para revisión académica y validación externa
+- **Tamaño final:** 21.5 KB (de 9.1 KB original)
 
 ---
 
-## ⚠️ SOP OBLIGATORIO: Actualización de README
-
-**REGLA DE ORO:** Cada vez que se realice cualquier operación de LECTURA o ESCRITURA en este directorio de proyecto, el README.md DEBE ser actualizado para reflejar los cambios.
-
-**Procedimiento:**
-1. Antes de cualquier read/write en `projects/cuatro-flor/` → Leer este README
-2. Después de completar la operación → Agregar entrada en "Bitácora de Cambios Recientes"
-3. Incluir: fecha, acción, archivos afectados, estado resultante
-4. Commit del cambio con mensaje descriptivo
-
-**Sin excepción.** Este README es la fuente de verdad del estado del proyecto.
+*Sincronizado desde Jarvis KB: 2026-04-05*
