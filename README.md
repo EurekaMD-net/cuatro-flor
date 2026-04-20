@@ -93,15 +93,22 @@ cuatro-flor/
 
 ---
 
-## Repo Oficial
+## Links del Proyecto
 
-**GitHub:** https://github.com/EurekaMD-net/cuatro-flor  
-**Rama:** `main`  
-**Org:** EurekaMD-net
+| Recurso | URL |
+|---|---|
+| **GitHub** | https://github.com/EurekaMD-net/cuatro-flor |
+| **Sincronizaciones Planetarias** | https://docs.google.com/spreadsheets/d/11ZKjulKOPaw3xzpLof_6g5PCtxZztMslsPQlzIdJy0k/edit?usp=sharing |
+
+**Rama:** `main` · **Org:** EurekaMD-net
 
 ---
 
 ## Bitácora de Cambios
+
+### 2026-04-20 — Link Google Sheet sincronizaciones planetarias
+- Agregada Google Sheet de sincronizaciones planetarias a los links del proyecto
+- Registrado en proyecto Jarvis (cuatro-flor)
 
 ### 2026-04-20 — Sync completo + README actualizado
 - Subidos 24 archivos faltantes al repo (docs/, drafts/, knowledge/, research/, tasks/)
