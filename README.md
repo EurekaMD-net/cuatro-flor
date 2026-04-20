@@ -2,60 +2,119 @@
 
 **Proyecto personal de estudio del tiempo y la vibración.**
 
-## Descripción
-Propósito fundamental en el tiempo en la Tierra. Investigación sobre calendarios mesoamericanos, ciclos planetarios y sincronías astronómicas.
+> Propósito fundamental en el tiempo en la Tierra. Investigación sobre calendarios mesoamericanos, ciclos planetarios y sincronías astronómicas.
+
+---
 
 ## Estado
-`active`
 
-## Fecha de inicio
-2026-04-03
-
-## Enlaces relevantes
-- **Repo oficial:** https://github.com/EurekaMD-net/cuatro-flor
-- Dashboard: TBD
-
-## Documentación
-- `research/calendarios-mesoamericanos/` — Investigación principal sobre ciclos planetarios en calendarios mayas y aztecas
+`active` — Investigación en curso · Iniciado: 2026-04-03 · Última sync: 2026-04-20
 
 ---
 
-## 📝 Bitácora de Cambios Recientes
+## Hallazgo Central: La Matriz 117
 
-### 2026-04-05 - Sincronización Completa Jarvis KB → GitHub
-- **Acción:** Sincronización de toda la estructura del KB al repo oficial
-- **Archivos afectados:** Todos los archivos del proyecto
-- **Estado resultante:** Repo GitHub refleja exactamente Jarvis KB
-- **Eliminado:** Carpeta `docs/` del repo local (no estaba en KB)
+El núcleo de la investigación es el ciclo **117 días** — sincronía comprobada entre Mercurio y Venus documentada en los calendarios mayas. Validado cruzando con:
 
-### 2026-04-05 22:48 - Integración Completa de Evidencia en Tesis
-- **Acción:** Actualización masiva del borrador de tesis con toda la evidencia académica disponible
-- **Archivos afectados:**
-  - Modificado: `research/calendarios-mesoamericanos/07-borrador-tesis-preliminar.md` (+12 KB)
-- **Cambios principales:**
-  - Apéndice A completo con 9 secciones de hallazgos integrados
-  - Matriz 117 completa documentada
-  - Validación cruzada con Linden & Bricker (2023), Aveni (2011), Hobel (2024)
-  - Comparativa 45 años vs. 52 años detallada
-  - Interpretación vibracional extendida
-  - Bibliografía actualizada
-- **Estado resultante:** Tesis lista para revisión académica y validación externa
-- **Tamaño final:** 21.5 KB (de 9.1 KB original)
+- **Linden & Bricker (2023)** — Conteo de 819 días con base planetaria
+- **Aveni (2011)** — Astronomía en la arquitectura mesoamericana
+- **Hobel (2024)** — Confirmación del ciclo Mercurio-Venus en Dresde
+
+La Matriz 117 establece un puente entre la aritmética ritual maya y las efemérides astronómicas observables, sugiriendo que los sacerdotes-astrónomos usaban este ciclo como unidad base de sincronización planetaria.
 
 ---
 
-## 📦 REPOSITORIO OFICIAL
+## Estructura del Repositorio
 
-**GitHub:** https://github.com/EurekaMD-net/cuatro-flor
+```
+cuatro-flor/
+├── README.md                          ← Este archivo
+├── SRC-README.md                      ← Descripción técnica de fuentes
+│
+├── docs/                              ← Documentos de tesis principales
+│   ├── tesis-base-v3.1.md            ← Versión más reciente (33.5 KB)
+│   ├── tesis_actualizada_hallazgos.md ← Integración completa de evidencia
+│   ├── tesis_draft.md                 ← Borrador inicial
+│   ├── RESUMEN-HALLAZGOS.md          ← Síntesis ejecutiva
+│   └── README.md
+│
+├── drafts/                            ← Borradores narrativos
+│   ├── cuatro-flor-v4-por-que-ahora.md  ← Más reciente
+│   ├── cuatro-flor-v3-completo.md       ← v3 completo (18.7 KB)
+│   ├── cuatro-flor-el-117-draft.md      ← Draft específico del 117
+│   ├── cuatro-flor-intro-draft-v2.md
+│   └── cuatro-flor-intro-draft-v1.md
+│
+├── research/
+│   ├── popol-vuh-13-9.md              ← Análisis del 13 y el 9 en Popol Vuh
+│   └── calendarios-mesoamericanos/    ← Investigación principal
+│       ├── 00-plan-investigacion.md
+│       ├── 01-literatura-existente.md
+│       ├── 07-borrador-tesis-preliminar.md (21.5 KB)
+│       ├── 09-plan-investigacion-5dias.md
+│       ├── 09-conclusiones-dia1.md
+│       ├── 09-validacion-epigrafica-completa.md
+│       ├── dia1-termodinamica-mitica.md
+│       ├── sagrado-trece-analisis.md
+│       ├── 02-literatura-existente/   ← Papers y fuentes por tema
+│       │   ├── 01-sincronia-planetaria-academica.md
+│       │   ├── 02-conteo-819-dias-linden-bricker.md
+│       │   ├── 03-confirmacion-117-mercurio-phys-org.md
+│       │   ├── 04-numero-9-luna-inframundo.md
+│       │   ├── 05-ciclo-52-anos-calendar-round.md
+│       │   └── 06-codice-dresden-tablas-astronomicas.md
+│       └── 04-autores-clave/
+│           └── 01-anthony-aveni.md
+│
+├── knowledge/
+│   └── origen-nombre.md               ← Por qué "Cuatro Flor"
+│
+├── tasks/
+│   └── 08-validacion-epigrafica-117.md ← Tarea activa
+│
+└── 00-plan-investigacion.md           ← Plan maestro raíz
+    01-introduccion-tesis.md
+    01-literatura-existente.md
+    02-por-civilizacion.md
+    03-hipotesis-existentes.md
+```
 
-**SOP de Sincronización:**
-1. Jarvis KB (`projects/cuatro-flor/`) es la **fuente única de verdad**
-2. El repo GitHub debe reflejar **exactamente** la estructura del KB
-3. Cualquier cambio en el KB debe ser commiteado y pusheado al repo
-4. Estructura del repo:
-   - `/` — README.md y documentos raíz
-   - `/research/calendarios-mesoamericanos/` — Investigación principal
-   - `/research/calendarios-mesoamericanos/02-literatura-existente/` — Papers académicos
-   - `/research/calendarios-mesoamericanos/04-autores-clave/` — Perfiles de autores
+---
 
-**Última sincronización:** 2026-04-05
+## Documentos Clave
+
+| Documento | Descripción | Tamaño |
+|---|---|---|
+| `docs/tesis-base-v3.1.md` | Versión más reciente de la tesis | 33.5 KB |
+| `docs/tesis_actualizada_hallazgos.md` | Con toda la evidencia integrada | ~21 KB |
+| `drafts/cuatro-flor-v4-por-que-ahora.md` | Borrador narrativo más reciente | — |
+| `research/calendarios-mesoamericanos/07-borrador-tesis-preliminar.md` | Borrador con Apéndice A completo | 21.5 KB |
+| `research/calendarios-mesoamericanos/09-validacion-epigrafica-completa.md` | Validación epigráfica del 117 | — |
+
+---
+
+## Repo Oficial
+
+**GitHub:** https://github.com/EurekaMD-net/cuatro-flor  
+**Rama:** `main`  
+**Org:** EurekaMD-net
+
+---
+
+## Bitácora de Cambios
+
+### 2026-04-20 — Sync completo + README actualizado
+- Subidos 24 archivos faltantes al repo (docs/, drafts/, knowledge/, research/, tasks/)
+- Total en repo: 36 archivos de contenido
+- README reescrito con estructura completa, hallazgo central y mapa de archivos
+- Working tree: limpio
+
+### 2026-04-05 — Integración completa de evidencia en tesis
+- `research/calendarios-mesoamericanos/07-borrador-tesis-preliminar.md` ampliado a 21.5 KB
+- Apéndice A completo con 9 secciones de hallazgos integrados
+- Matriz 117 documentada con validación cruzada (Linden & Bricker, Aveni, Hobel)
+- Comparativa 45 años vs. 52 años detallada
+
+### 2026-04-05 — Sincronización inicial Jarvis KB → GitHub
+- Primera sync completa del KB al repo oficial
+- Estructura base establecida
