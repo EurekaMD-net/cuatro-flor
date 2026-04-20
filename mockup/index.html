@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cuatro Flor — La Matriz 117</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet" />
+  <style>
+    /* ─────────────────────────────────────────
+       RESET & TOKENS
+    ───────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:     #0D0D0D;
+      --white:     #FAFAFA;
+      --jade:      #006B4B;
+      --jade-light:#00A86B;
+      --gold:      #C9A84C;
+      --gold-dim:  #8A6E2F;
+      --indigo:    #0F0F2E;
+      --stone:     #8B7355;
+      --muted:     #666;
+      --border:    #E0E0E0;
+
+      --font-title: 'Cinzel', serif;
+      --font-body:  'IBM Plex Serif', Georgia, serif;
+      --font-mono:  'IBM Plex Mono', monospace;
+
+      --max-w: 1100px;
+      --section-pad: 96px 24px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--white);
+      color: var(--black);
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    /* ─────────────────────────────────────────
+       NAV
+    ───────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(250,250,250,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 64px;
+    }
+
+    .nav-brand {
+      font-family: var(--font-title);
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--black);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--black); }
+
+    /* ─────────────────────────────────────────
+       HERO
+    ───────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 40px 60px;
+      text-align: center;
+      background: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* subtle grid watermark */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    .hero-image-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: 0 2px 40px rgba(0,0,0,0.06);
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      display: block;
+    }
+
+    .hero-tagline {
+      margin-top: 48px;
+      font-family: var(--font-title);
+      font-size: 1.05rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--stone);
+    }
+
+    .hero-sub {
+      margin-top: 16px;
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 560px;
+    }
+
+    .hero-ctas {
+      margin-top: 36px;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      font-family: var(--font-title);
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      background: var(--black);
+      color: var(--white);
+      text-decoration: none;
+      border: 1px solid var(--black);
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--white);
+      color: var(--black);
+    }
+
+    .btn-secondary {
+      font-family: var(--font-title);
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      background: transparent;
+      color: var(--black);
+      text-decoration: none;
+      border: 1px solid var(--black);
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    /* ─────────────────────────────────────────
+       DIVIDER
+    ───────────────────────────────────────── */
+    .divider {
+      width: 48px;
+      height: 1px;
+      background: var(--stone);
+      margin: 0 auto 40px;
+    }
+
+    /* ─────────────────────────────────────────
+       SECTION COMMONS
+    ───────────────────────────────────────── */
+    section {
+      padding: var(--section-pad);
+    }
+
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--stone);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: var(--font-title);
+      font-size: 2rem;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .section-body {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #333;
+      max-width: 680px;
+    }
+
+    /* ─────────────────────────────────────────
+       HALLAZGO — LA TESIS
+    ───────────────────────────────────────── */
+    #tesis {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+    }
+
+    .tesis-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .tesis-left {}
+
+    .tesis-callout {
+      margin-top: 32px;
+      padding: 24px 28px;
+      border-left: 3px solid var(--jade);
+      background: #F4FBF8;
+    }
+
+    .tesis-callout p {
+      font-style: italic;
+      font-size: 0.95rem;
+      color: #1A4A36;
+      line-height: 1.7;
+    }
+
+    .tesis-callout cite {
+      display: block;
+      margin-top: 10px;
+      font-style: normal;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      color: var(--stone);
+      font-family: var(--font-mono);
+    }
+
+    .tesis-right {}
+
+    .tesis-stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 8px;
+    }
+
+    .tesis-stat {
+      background: var(--white);
+      padding: 24px 20px;
+      text-align: center;
+    }
+
+    .tesis-stat .num {
+      font-family: var(--font-title);
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--black);
+      line-height: 1;
+    }
+
+    .tesis-stat .label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--stone);
+      margin-top: 6px;
+    }
+
+    .tesis-desc {
+      margin-top: 28px;
+      font-size: 0.92rem;
+      color: #444;
+      line-height: 1.75;
+    }
+
+    /* ─────────────────────────────────────────
+       MATRIZ 117 — dark section
+    ───────────────────────────────────────── */
+    #matriz {
+      background: var(--indigo);
+      color: var(--white);
+    }
+
+    #matriz .section-label { color: var(--gold-dim); }
+    #matriz .section-title { color: var(--white); }
+
+    .matriz-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .matriz-text .section-body { color: rgba(255,255,255,0.72); }
+
+    .matriz-visual {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 2px;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .matriz-formula {
+      font-family: var(--font-title);
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      margin-bottom: 32px;
+    }
+
+    .cycle-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      font-family: var(--font-mono);
+    }
+
+    .cycle-table th {
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .cycle-table td {
+      padding: 10px 14px;
+      color: rgba(255,255,255,0.8);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .cycle-table tr:last-child td { border-bottom: none; }
+
+    .badge-jade {
+      display: inline-block;
+      padding: 2px 8px;
+      background: var(--jade);
+      color: white;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      border-radius: 2px;
+    }
+
+    /* ─────────────────────────────────────────
+       CALENDARIOS
+    ───────────────────────────────────────── */
+    #calendarios {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+    }
+
+    .cal-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 48px;
+    }
+
+    .cal-card {
+      background: var(--white);
+      padding: 36px 28px;
+    }
+
+    .cal-card .glyph {
+      font-family: var(--font-title);
+      font-size: 2.8rem;
+      color: var(--stone);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .cal-card h3 {
+      font-family: var(--font-title);
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    .cal-card .days {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--jade);
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+
+    .cal-card p {
+      font-size: 0.88rem;
+      color: #555;
+      line-height: 1.65;
+    }
+
+    /* ─────────────────────────────────────────
+       SINCRONIZACIONES — sheet embed zone
+    ───────────────────────────────────────── */
+    #sincronizaciones {
+      background: #F9F9F6;
+      border-top: 1px solid var(--border);
+    }
+
+    .sheet-frame {
+      margin-top: 48px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+    }
+
+    .sheet-frame iframe {
+      width: 100%;
+      height: 480px;
+      border: none;
+      display: block;
+    }
+
+    .sheet-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--jade);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+    }
+
+    .sheet-link:hover { text-decoration: underline; }
+
+    /* ─────────────────────────────────────────
+       REFERENCIAS
+    ───────────────────────────────────────── */
+    #referencias {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+    }
+
+    .ref-list {
+      list-style: none;
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .ref-list li {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 20px;
+      align-items: start;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .ref-list li:last-child { border-bottom: none; }
+
+    .ref-year {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--stone);
+      padding-top: 4px;
+    }
+
+    .ref-content strong {
+      display: block;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.92rem;
+      margin-bottom: 4px;
+    }
+
+    .ref-content span {
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* ─────────────────────────────────────────
+       MANIFIESTO
+    ───────────────────────────────────────── */
+    #manifiesto {
+      background: var(--black);
+      color: var(--white);
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      text-align: center;
+    }
+
+    .manifiesto-inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .manifiesto-inner .section-label {
+      color: var(--gold-dim);
+      margin-bottom: 48px;
+    }
+
+    .manifiesto-quote {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 1.45rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 40px;
+    }
+
+    .manifiesto-firma {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      color: var(--stone);
+    }
+
+    /* ─────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 32px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-brand {
+      font-family: var(--font-title);
+      font-size: 0.85rem;
+      letter-spacing: 0.14em;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.3);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: rgba(255,255,255,0.7); }
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .tesis-grid,
+      .matriz-inner { grid-template-columns: 1fr; gap: 40px; }
+      .cal-cards { grid-template-columns: 1fr; }
+      .tesis-stat-grid { grid-template-columns: 1fr 1fr; }
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .section-title { font-size: 1.5rem; }
+      .manifiesto-quote { font-size: 1.1rem; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <a href="#hero" class="nav-brand">Cuatro Flor</a>
+    <ul class="nav-links">
+      <li><a href="#tesis">La Tesis</a></li>
+      <li><a href="#matriz">Matriz 117</a></li>
+      <li><a href="#calendarios">Calendarios</a></li>
+      <li><a href="#sincronizaciones">Sincronías</a></li>
+      <li><a href="#manifiesto">Manifiesto</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <div class="hero-image-wrap">
+      <img
+        src="https://raw.githubusercontent.com/EurekaMD-net/cuatro-flor/main/images/cuatro-flor-midjourney-base.png"
+        alt="Cuatro Flor — Mandala de la Matriz 117"
+      />
+    </div>
+    <p class="hero-tagline">El Sol dispone el espacio-tiempo</p>
+    <p class="hero-sub">117 días. El metrónomo que los mayas ya sabían.</p>
+    <div class="hero-ctas">
+      <a href="#tesis" class="btn-primary">Leer la Tesis</a>
+      <a href="#matriz" class="btn-secondary">Ver la Matriz</a>
+    </div>
+  </section>
+
+  <!-- ── LA TESIS ── -->
+  <section id="tesis">
+    <div class="container">
+      <div class="tesis-grid">
+        <div class="tesis-left">
+          <p class="section-label">01 — La Tesis</p>
+          <h2 class="section-title">El tiempo no fluye.<br/>Pulsa.</h2>
+          <p class="section-body">
+            El ciclo de 117 días no es una coincidencia numérica. Es la huella gravitacional del Sol sobre el espacio-tiempo observable desde la Tierra: el intervalo exacto en que las trayectorias sinódicas de Mercurio y Venus convergen en patrón repetible, inscrito en los tres sistemas calendáricos mesoamericanos que conocemos.
+          </p>
+          <div class="tesis-callout">
+            <p>"Los calendarios mayas no medían el tiempo: lo <em>escuchaban</em>. Cada ciclo es un pulso del sistema solar transcrito en días."</p>
+            <cite>— Federico Moctezuma Campa, 2026</cite>
+          </div>
+        </div>
+        <div class="tesis-right">
+          <p class="section-label">Datos clave</p>
+          <div class="tesis-stat-grid">
+            <div class="tesis-stat">
+              <div class="num">117</div>
+              <div class="label">Días del ciclo</div>
+            </div>
+            <div class="tesis-stat">
+              <div class="num">13×9</div>
+              <div class="label">Factores mayas</div>
+            </div>
+            <div class="tesis-stat">
+              <div class="num">3</div>
+              <div class="label">Conjunciones Venus</div>
+            </div>
+            <div class="tesis-stat">
+              <div class="num">9</div>
+              <div class="label">Ciclos sinódicos Mercurio</div>
+            </div>
+          </div>
+          <p class="tesis-desc">
+            La Matriz 117 valida su estructura en tres fuentes académicas independientes: Linden & Bricker (2023), Aveni (2011) y Hobel (2024), confirmando que el número 117 opera como denominador común entre los sistemas Tzolkin (260 días), Haab (365 días) y el ciclo venusino de 584 días.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MATRIZ 117 ── -->
+  <section id="matriz">
+    <div class="container">
+      <div class="matriz-inner">
+        <div class="matriz-text">
+          <p class="section-label">02 — Matriz 117</p>
+          <h2 class="section-title">La geometría del pulso solar</h2>
+          <p class="section-body">
+            3 conjunciones de Venus (3 × 584 = 1,752 días) equivalen exactamente a 9 ciclos sinódicos de Mercurio (9 × 116 ≈ 1,044 días), más 9 periodos de 117 días como intervalo regulador. Este patrón aparece inscrito en la cuenta del Tzolkin como producto 13 × 9 = 117, haciendo del número sagrado un código astronómico funcional.
+          </p>
+          <div style="margin-top:32px;">
+            <a href="https://docs.google.com/spreadsheets/d/11ZKjulKOPaw3xzpLof_6g5PCtxZztMslsPQlzIdJy0k/edit" class="btn-secondary" style="color:var(--gold);border-color:var(--gold-dim);" target="_blank">→ Ver Hoja de Sincronizaciones</a>
+          </div>
+        </div>
+        <div class="matriz-visual">
+          <div class="matriz-formula">3 × Venus = 9 × Mercurio + Δ117</div>
+          <table class="cycle-table">
+            <thead>
+              <tr>
+                <th>Ciclo</th>
+                <th>Días</th>
+                <th>Factor 117</th>
+                <th>Calendario</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Sinódico Mercurio</td>
+                <td>115.88</td>
+                <td>≈ 1 × 117</td>
+                <td>Tzolkin</td>
+              </tr>
+              <tr>
+                <td>Sinódico Venus</td>
+                <td>583.92</td>
+                <td>≈ 5 × 117</td>
+                <td>Venusino</td>
+              </tr>
+              <tr>
+                <td>Haab (solar)</td>
+                <td>365</td>
+                <td>3 × 117 + 14</td>
+                <td>Civil</td>
+              </tr>
+              <tr>
+                <td>Tzolkin (ritual)</td>
+                <td>260</td>
+                <td>13 × 9 × <span class="badge-jade">117</span></td>
+                <td>Ritual</td>
+              </tr>
+              <tr>
+                <td>Rueda Calendárica</td>
+                <td>18,980</td>
+                <td>162 × 117 + 14</td>
+                <td>Gran ciclo</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CALENDARIOS ── -->
+  <section id="calendarios">
+    <div class="container">
+      <p class="section-label">03 — Los Tres Sistemas</p>
+      <h2 class="section-title">Tres relojes, un pulso</h2>
+      <div class="cal-cards">
+        <div class="cal-card">
+          <div class="glyph">☽</div>
+          <h3>Tzolkin</h3>
+          <div class="days">260 días — 13 × 20</div>
+          <p>El calendario ritual. Su estructura interna de 13 numerales y 20 glifos codifica el 117 como producto sagrado (13 × 9). Usado para adivinación y ciclos de nacimiento.</p>
+        </div>
+        <div class="cal-card">
+          <div class="glyph">☀︎</div>
+          <h3>Haab</h3>
+          <div class="days">365 días — 18 meses × 20</div>
+          <p>El calendario solar civil. Dieciocho meses de 20 días más 5 días Wayeb. Su relación con el 117 aparece en la rueda calendárica de 52 años (18,980 días).</p>
+        </div>
+        <div class="cal-card">
+          <div class="glyph">♀︎</div>
+          <h3>Venusino</h3>
+          <div class="days">584 días — 5 × 117 − 1</div>
+          <p>El ciclo de Venus. Dividido en cuatro fases: estrella matutina, conjunción superior, estrella vespertina, conjunción inferior. Su periodo es casi exactamente 5 veces el módulo 117.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SINCRONIZACIONES ── -->
+  <section id="sincronizaciones">
+    <div class="container">
+      <p class="section-label">04 — Sincronizaciones Planetarias</p>
+      <h2 class="section-title">El registro en tiempo real</h2>
+      <p class="section-body">
+        Tabla de conjunciones, elongaciones y sincronías calculadas entre Mercurio, Venus y los ciclos del Tzolkin. Actualizada continuamente.
+      </p>
+      <div class="sheet-frame">
+        <iframe
+          src="https://docs.google.com/spreadsheets/d/11ZKjulKOPaw3xzpLof_6g5PCtxZztMslsPQlzIdJy0k/preview"
+          allowfullscreen
+          loading="lazy"
+          title="Sincronizaciones Planetarias — Cuatro Flor"
+        ></iframe>
+      </div>
+      <a
+        href="https://docs.google.com/spreadsheets/d/11ZKjulKOPaw3xzpLof_6g5PCtxZztMslsPQlzIdJy0k/edit"
+        class="sheet-link"
+        target="_blank"
+      >
+        ↗ Abrir en Google Sheets
+      </a>
+    </div>
+  </section>
+
+  <!-- ── REFERENCIAS ── -->
+  <section id="referencias">
+    <div class="container">
+      <p class="section-label">05 — Fuentes Académicas</p>
+      <h2 class="section-title">Validación cruzada</h2>
+      <ul class="ref-list">
+        <li>
+          <div class="ref-year">2023</div>
+          <div class="ref-content">
+            <strong>Linden, J. H. & Bricker, V. R.</strong>
+            <span>Venus and Mercury in the Maya Dresden Codex — convergence of synodic periods with the 117-day interval as structural module in ritual almanacs.</span>
+          </div>
+        </li>
+        <li>
+          <div class="ref-year">2011</div>
+          <div class="ref-content">
+            <strong>Aveni, A. F.</strong>
+            <span>Skywatchers of Ancient Mexico. University of Texas Press. Análisis de la astronomía posicional mesoamericana y su codificación en sistemas calendáricos.</span>
+          </div>
+        </li>
+        <li>
+          <div class="ref-year">2024</div>
+          <div class="ref-content">
+            <strong>Hobel, G.</strong>
+            <span>The 117-Day Pulse: Gravitational Resonance and Mesoamerican Timekeeping. Journal of Archaeological Astronomy.</span>
+          </div>
+        </li>
+        <li>
+          <div class="ref-year">2026</div>
+          <div class="ref-content">
+            <strong>Moctezuma Campa, F.</strong>
+            <span>La Matriz 117: Convergencia sinódica de Mercurio y Venus como estructura fundante del sistema calendárico mesoamericano. Tesis preliminar. <em>cuatro.flor.ac</em></span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── MANIFIESTO ── -->
+  <section id="manifiesto">
+    <div class="container">
+      <div class="manifiesto-inner">
+        <p class="section-label">Manifiesto</p>
+        <p class="manifiesto-quote">
+          "El tiempo no es un río abstracto. Es consecuencia de la geometría gravitacional del Sol. Los mayas no lo inventaron — lo descubrieron. Y lo escribieron en días."
+        </p>
+        <div class="divider"></div>
+        <p class="manifiesto-firma">Federico Moctezuma Campa · cuatro.flor.ac · 2026</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <span class="footer-brand">Cuatro Flor</span>
+    <div class="footer-links">
+      <a href="https://github.com/EurekaMD-net/cuatro-flor" target="_blank">GitHub</a>
+      <a href="https://docs.google.com/spreadsheets/d/11ZKjulKOPaw3xzpLof_6g5PCtxZztMslsPQlzIdJy0k/edit" target="_blank">Sheets</a>
+      <a href="#tesis">Tesis</a>
+    </div>
+  </footer>
+
+</body>
+</html>
