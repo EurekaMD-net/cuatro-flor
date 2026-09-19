@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>cuatro.flor.ac — Arqueoastronomía Mesoamericana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;700;900&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #CC0000;
+    --black: #0A0A0A;
+    --white: #FFFFFF;
+    --gray-100: #F4F4F4;
+    --gray-300: #AAAAAA;
+    --type-xs: 0.75rem;
+    --type-sm: 0.875rem;
+    --type-base: 1rem;
+    --type-lg: 1.25rem;
+    --type-xl: 1.75rem;
+    --type-2xl: 2.5rem;
+    --type-3xl: 4rem;
+    --type-4xl: 7rem;
+    --type-hero: clamp(5rem, 14vw, 11rem);
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: var(--white);
+    color: var(--black);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── GRID SYSTEM ── */
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--black);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-logo {
+    font-size: var(--type-sm);
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--black);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--red); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: var(--type-xs);
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--black);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .nav-links a:hover { color: var(--red); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 4rem;
+    border-bottom: 1px solid var(--black);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-number {
+    position: absolute;
+    top: 50%;
+    right: -0.05em;
+    transform: translateY(-50%);
+    font-size: clamp(14rem, 35vw, 30rem);
+    font-weight: 900;
+    line-height: 1;
+    color: var(--gray-100);
+    letter-spacing: -0.04em;
+    user-select: none;
+    z-index: 0;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-label {
+    font-size: var(--type-xs);
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hero-label::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 1px;
+    background: var(--red);
+  }
+
+  .hero-title {
+    font-size: var(--type-hero);
+    font-weight: 100;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    color: var(--black);
+    margin-bottom: 3rem;
+  }
+
+  .hero-title strong {
+    font-weight: 900;
+    display: block;
+  }
+
+  .hero-title em {
+    font-style: normal;
+    color: var(--red);
+  }
+
+  .hero-sub {
+    max-width: 520px;
+    font-size: var(--type-base);
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--black);
+  }
+
+  .hero-meta {
+    margin-top: 3rem;
+    display: flex;
+    gap: 3rem;
+    align-items: flex-end;
+  }
+
+  .hero-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .hero-stat-number {
+    font-size: var(--type-3xl);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .hero-stat-number.red { color: var(--red); }
+
+  .hero-stat-label {
+    font-size: var(--type-xs);
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray-300);
+  }
+
+  /* ── STATEMENT ── */
+  .statement {
+    padding: 8rem 0;
+    border-bottom: 1px solid var(--black);
+  }
+
+  .statement-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .statement-label {
+    font-size: var(--type-xs);
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray-300);
+    padding-top: 0.4rem;
+  }
+
+  .statement-text {
+    font-size: var(--type-xl);
+    font-weight: 200;
+    line-height: 1.5;
+    color: var(--black);
+  }
+
+  .statement-text strong {
+    font-weight: 700;
+    color: var(--red);
+  }
+
+  /* ── THESIS / MODULE ── */
+  .thesis {
+    padding: 0 0 8rem 0;
+    border-bottom: 1px solid var(--black);
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 2.5rem 0;
+    border-top: 1px solid var(--black);
+    margin-bottom: 4rem;
+  }
+
+  .section-title {
+    font-size: var(--type-xs);
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .section-num {
+    font-size: var(--type-xs);
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--gray-300);
+  }
+
+  .thesis-core {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--black);
+    margin-bottom: 1px;
+  }
+
+  .thesis-panel {
+    background: var(--white);
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .thesis-panel.dark {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .thesis-panel.red-accent {
+    background: var(--red);
+    color: var(--white);
+  }
+
+  .panel-num {
+    font-size: var(--type-xs);
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+
+  .panel-equation {
+    font-size: var(--type-2xl);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .panel-equation .op { font-weight: 100; opacity: 0.4; }
+
+  .panel-title {
+    font-size: var(--type-lg);
+    font-weight: 300;
+    line-height: 1.4;
+  }
+
+  .panel-body {
+    font-size: var(--type-sm);
+    font-weight: 300;
+    line-height: 1.7;
+    opacity: 0.8;
+  }
+
+  .panel-citation {
+    font-size: var(--type-xs);
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    opacity: 0.5;
+    margin-top: auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid currentColor;
+    opacity: 0.3;
+  }
+
+  /* ── MATRIX ── */
+  .matrix {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--black);
+  }
+
+  .matrix-cell {
+    background: var(--white);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .matrix-value {
+    font-size: var(--type-2xl);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .matrix-formula {
+    font-size: var(--type-xs);
+    font-weight: 300;
+    color: var(--red);
+    letter-spacing: 0.05em;
+  }
+
+  .matrix-desc {
+    font-size: var(--type-xs);
+    font-weight: 300;
+    color: var(--gray-300);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+  }
+
+  /* ── PRINCIPLES ── */
+  .principles {
+    padding: 8rem 0;
+    border-bottom: 1px solid var(--black);
+  }
+
+  .principles-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .principle-item {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    padding: 3rem 0;
+    border-top: 1px solid var(--black);
+    transition: background 0.2s;
+  }
+
+  .principle-item:hover { background: var(--gray-100); }
+
+  .principle-n {
+    font-size: var(--type-xs);
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: var(--gray-300);
+    padding-top: 0.3rem;
+  }
+
+  .principle-name {
+    font-size: var(--type-xl);
+    font-weight: 200;
+    line-height: 1.2;
+  }
+
+  .principle-name strong { font-weight: 700; }
+
+  .principle-body {
+    font-size: var(--type-sm);
+    font-weight: 300;
+    line-height: 1.8;
+    color: #444;
+  }
+
+  /* ── CODEX BAND ── */
+  .codex-band {
+    background: var(--black);
+    color: var(--white);
+    padding: 6rem 0;
+    border-bottom: 1px solid var(--black);
+  }
+
+  .codex-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .codex-quote {
+    font-size: var(--type-2xl);
+    font-weight: 100;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  .codex-quote strong { font-weight: 900; color: var(--red); }
+
+  .codex-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .codex-ref {
+    font-size: var(--type-xs);
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #888;
+  }
+
+  .codex-pages {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 4px;
+  }
+
+  .codex-page {
+    aspect-ratio: 1;
+    background: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    font-weight: 300;
+    color: #888;
+    letter-spacing: 0.05em;
+  }
+
+  .codex-page.active {
+    background: var(--red);
+    color: var(--white);
+  }
+
+  .codex-page-label {
+    font-size: var(--type-xs);
+    font-weight: 300;
+    color: #666;
+    margin-top: 1rem;
+    line-height: 1.6;
+  }
+
+  /* ── LIVE BADGE ── */
+  .live-band {
+    background: var(--red);
+    color: var(--white);
+    padding: 4rem 0;
+    border-bottom: 1px solid var(--black);
+  }
+
+  .live-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .live-tag {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: var(--type-xs);
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+  }
+
+  .live-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--white);
+    border-radius: 50%;
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .live-text {
+    font-size: var(--type-xl);
+    font-weight: 200;
+    max-width: 600px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 4rem 0;
+    border-top: 1px solid var(--black);
+  }
+
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 2rem;
+  }
+
+  .footer-logo {
+    font-size: var(--type-3xl);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--black);
+  }
+
+  .footer-logo span { color: var(--red); }
+
+  .footer-meta {
+    font-size: var(--type-xs);
+    font-weight: 300;
+    color: var(--gray-300);
+    letter-spacing: 0.1em;
+    text-align: right;
+    line-height: 2;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .thesis-core { grid-template-columns: 1fr; }
+    .matrix { grid-template-columns: repeat(2, 1fr); }
+    .statement-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .principle-item { grid-template-columns: 50px 1fr; }
+    .principle-body { display: none; }
+    .codex-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .live-inner { flex-direction: column; align-items: flex-start; }
+    .footer-inner { flex-direction: column; align-items: flex-start; }
+    .footer-logo { font-size: var(--type-2xl); }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">cuatro<span>.flor.ac</span></a>
+  <ul class="nav-links">
+    <li><a href="#tesis">La Tesis</a></li>
+    <li><a href="#matriz">La Matriz</a></li>
+    <li><a href="#principios">Principios</a></li>
+    <li><a href="#codice">El Códice</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-number">117</div>
+  <div class="container hero-content">
+    <div class="hero-label">Arqueoastronomía Mesoamericana</div>
+    <h1 class="hero-title">
+      Cuatro<br>
+      <strong>Flor<em>.</em></strong>
+    </h1>
+    <p class="hero-sub">
+      Los antiguos mesoamericanos no adoraban el tiempo. Lo midieron. 
+      Lo codificaron. Lo comprendieron con una precisión que el mundo occidental 
+      tardó siglos en alcanzar — y que hoy apenas comenzamos a leer.
+    </p>
+    <div class="hero-meta">
+      <div class="hero-stat">
+        <span class="hero-stat-number red">117</span>
+        <span class="hero-stat-label">Módulo base</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-number">9 × 13</span>
+        <span class="hero-stat-label">Bolontiku × Oxlahuntiku</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-number">819</span>
+        <span class="hero-stat-label">Ciclo planetario</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATEMENT -->
+<section class="statement" id="tesis">
+  <div class="container">
+    <div class="statement-grid">
+      <div class="statement-label">La pregunta</div>
+      <div class="statement-text">
+        ¿Qué pasa cuando el conocimiento astronómico más sofisticado del hemisferio occidental 
+        lleva mil años catalogado como <strong>mitología</strong>?
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THESIS CORE -->
+<section class="thesis" id="tesis">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-title">La Tesis Central</span>
+      <span class="section-num">01</span>
+    </div>
+
+    <div class="thesis-core">
+      <!-- Panel 1: dark -->
+      <div class="thesis-panel dark">
+        <span class="panel-num">Proposición</span>
+        <div class="panel-equation">
+          9 <span class="op">×</span> 13 <span class="op">=</span> 117
+        </div>
+        <p class="panel-title">El número 117 es el módulo base que genera el sistema calendárico mesoamericano completo.</p>
+        <p class="panel-body">No es una coincidencia ni una inferencia moderna. Es el período sinódico de Mercurio. Aparece en las páginas 30–33 del Códice Dresde en estructura de 9 columnas × 13 días. Los Bolontiku y los Oxlahuntiku no son deidades arbitrarias — son los factores del período orbital más importante del sistema.</p>
+        <span class="panel-citation">Stuart, Aveni &amp; Rossi, Science (2012) — Murales de Xultun, Guatemala</span>
+      </div>
+
+      <!-- Panel 2: white -->
+      <div class="thesis-panel">
+        <span class="panel-num">La Contribución Original</span>
+        <p class="panel-title" style="font-size: var(--type-xl); font-weight: 200;">La academia ya vio la fórmula. Nunca la interpretó como principio generador.</p>
+        <p class="panel-body">El 117 no es una consecuencia del sistema calendárico mesoamericano. Es el módulo desde el cual el sistema se construye. Esta distinción — de consecuencia a causa — es el aporte central de esta investigación.</p>
+        <p class="panel-body">El sistema es fractal: un solo número, multiplicado por los factores correctos, produce todos los ciclos observables. El Tzolkin, el Haab, el Calendar Round, el ciclo Venus-Mercurio — todos son múltiplos de 117.</p>
+        <span class="panel-citation">Trabajo en progreso — 2026</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MATRIX -->
+<section id="matriz">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-title">La Matriz 117</span>
+      <span class="section-num">02</span>
+    </div>
+  </div>
+  <div style="margin-bottom: 8rem;">
+    <div class="matrix">
+      <div class="matrix-cell">
+        <div class="matrix-value" style="color: var(--red);">117</div>
+        <div class="matrix-formula">9 × 13</div>
+        <div class="matrix-desc">Período sinódico Mercurio</div>
+      </div>
+      <div class="matrix-cell">
+        <div class="matrix-value">819</div>
+        <div class="matrix-formula">117 × 7</div>
+        <div class="matrix-desc">Ciclo sincronía planetaria</div>
+      </div>
+      <div class="matrix-cell">
+        <div class="matrix-value">2,340</div>
+        <div class="matrix-formula">117 × 20</div>
+        <div class="matrix-desc">Almanaque Venus-Mercurio</div>
+      </div>
+      <div class="matrix-cell">
+        <div class="matrix-value">18,980</div>
+        <div class="matrix-formula">117 × 162</div>
+        <div class="matrix-desc">Calendar Round (52 años)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRINCIPLES -->
+<section class="principles" id="principios">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-title">Principios de Investigación</span>
+      <span class="section-num">03</span>
+    </div>
+
+    <div class="principles-list">
+      <div class="principle-item">
+        <span class="principle-n">01</span>
+        <div class="principle-name">Conocimiento <strong>vivo</strong></div>
+        <p class="principle-body">La astronomía mesoamericana no es artefacto. Es un sistema de observación que funcionó — y que sigue siendo verificable contra los cielos reales de hoy. Su vigencia no depende de su aceptación cultural sino de su exactitud matemática.</p>
+      </div>
+      <div class="principle-item">
+        <span class="principle-n">02</span>
+        <div class="principle-name">Lateral al <strong>cartesiano</strong></div>
+        <p class="principle-body">No es conocimiento inferior ni superior. Es lateral. Desarrollado con instrumentos distintos, en un marco cosmológico distinto, llegando a conclusiones que en muchos casos coinciden con las de la astronomía occidental — y en algunos las anteceden.</p>
+      </div>
+      <div class="principle-item">
+        <span class="principle-n">03</span>
+        <div class="principle-name">Evidencia sobre <strong>interpretación</strong></div>
+        <p class="principle-body">Toda afirmación en esta investigación está anclada en evidencia material: textos epigráficos, alineaciones arquitectónicas medibles, ciclos astronómicos calculables. La metáfora es herramienta de comunicación, no de demostración.</p>
+      </div>
+      <div class="principle-item">
+        <span class="principle-n">04</span>
+        <div class="principle-name">Trabajo en <strong>movimiento</strong></div>
+        <p class="principle-body">Nada aquí está finalizado. Este sitio es el diario público de una investigación activa. Las hipótesis se actualizan cuando la evidencia lo requiere. El rigor no está en la certeza — está en la trazabilidad.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CODEX BAND -->
+<section class="codex-band" id="codice">
+  <div class="container">
+    <div class="section-header" style="border-top: 1px solid #333; padding: 2.5rem 0; margin-bottom: 4rem;">
+      <span class="section-title" style="color: #666;">El Códice Dresde</span>
+      <span class="section-num" style="color: #444;">04</span>
+    </div>
+    <div class="codex-inner">
+      <div class="codex-quote">
+        "Las páginas 30–33 muestran <strong>9 columnas × 13 días</strong>. Eso no es iconografía. Es álgebra."
+      </div>
+      <div class="codex-detail">
+        <span class="codex-ref">Páginas del Códice Dresde — estructura 9×13</span>
+        <div class="codex-pages">
+          <!-- 9 columnas representadas -->
+          <div class="codex-page">30a</div>
+          <div class="codex-page">30b</div>
+          <div class="codex-page">30c</div>
+          <div class="codex-page active">31a</div>
+          <div class="codex-page active">31b</div>
+          <div class="codex-page active">31c</div>
+          <div class="codex-page">32a</div>
+          <div class="codex-page">32b</div>
+          <div class="codex-page">33a</div>
+        </div>
+        <p class="codex-page-label">Las columnas activas (31a–31c) contienen la estructura 9×13 más explícita. El período sinódico de Mercurio — 117 días — codificado como factor del sistema completo.</p>
+        <span class="codex-ref" style="margin-top: 1rem;">Linden &amp; Bricker (2023) — Peer-reviewed<br>Aveni (2011) — The Sky in Mayan Literature</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE BAND -->
+<section class="live-band">
+  <div class="container live-inner">
+    <div class="live-tag">
+      <div class="live-dot"></div>
+      Investigación activa
+    </div>
+    <div class="live-text">
+      Este es un trabajo en movimiento. La tesis más importante es que los trabajos de astronomía de los antiguos mesoamericanos es — y seguirá siendo — conocimiento vivo.
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-logo">cuatro<span>.</span>flor.ac</div>
+    <div class="footer-meta">
+      Arqueoastronomía Mesoamericana<br>
+      Investigación independiente — 2026<br>
+      Trabajo en progreso
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
